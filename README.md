@@ -26,9 +26,19 @@ A comprehensive network discovery tool for ESP32 with ethernet connectivity that
 
 ## Hardware Requirements
 
-- ESP32 development board with ethernet capability (e.g., ESP32-Ethernet-Kit)
+- **WT32-ETH01** (recommended) - ESP32-S3 board with built-in ethernet
+- **Alternative**: ESP32-Ethernet-Kit or other ESP32 boards with ethernet capability
 - Ethernet cable and network connection
 - USB cable for programming and serial communication
+
+### WT32-ETH01 Compatibility
+This project is optimized for the WT32-ETH01 board, featuring:
+- Built-in LAN8720 PHY chip for reliable ethernet
+- ESP32-S3 dual-core processor
+- Compact design suitable for industrial applications
+- Pre-configured pin assignments for plug-and-play operation
+
+See `WT32-ETH01_SETUP.md` for detailed hardware setup instructions.
 
 ## Installation
 
@@ -180,4 +190,4 @@ Scanning device: 192.168.1.50
 
 ## License
 
-This project is open source and available under the MIT License.# esp32-network-discovery
+This project is open source and available under the MIT License.
