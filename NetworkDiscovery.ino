@@ -4,6 +4,9 @@
  * Supports Ethernet connectivity with device discovery and port scanning
  */
 
+// Disable Bluetooth to avoid A2DP compilation errors
+#define CONFIG_BT_ENABLED 0
+
 #include <ETH.h>
 #include <WiFi.h>
 #include <WebServer.h>

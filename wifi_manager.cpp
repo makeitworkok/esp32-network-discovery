@@ -461,11 +461,25 @@ bool WiFiManager::loadFromFile() {
         creds.ssid = network["ssid"].as<String>();
         creds.password = network["password"].as<String>();
         creds.useStaticIP = network["useStaticIP"] | false;
-        creds.staticIP.fromString(network["staticIP"] | "192.168.1.100");
-        creds.gateway.fromString(network["gateway"] | "192.168.1.1");
-        creds.subnet.fromString(network["subnet"] | "255.255.255.0");
-        creds.dns1.fromString(network["dns1"] | "8.8.8.8");
-        creds.dns2.fromString(network["dns2"] | "8.8.4.4");
+        String staticIP = network["staticIP"].as<String>();
+        if (staticIP.isEmpty()) staticIP = "192.168.1.100";
+        creds.staticIP.fromString(staticIP);
+        
+        String gateway = network["gateway"].as<String>();
+        if (gateway.isEmpty()) gateway = "192.168.1.1";
+        creds.gateway.fromString(gateway);
+        
+        String subnet = network["subnet"].as<String>();
+        if (subnet.isEmpty()) subnet = "255.255.255.0";
+        creds.subnet.fromString(subnet);
+        
+        String dns1 = network["dns1"].as<String>();
+        if (dns1.isEmpty()) dns1 = "8.8.8.8";
+        creds.dns1.fromString(dns1);
+        
+        String dns2 = network["dns2"].as<String>();
+        if (dns2.isEmpty()) dns2 = "8.8.4.4";
+        creds.dns2.fromString(dns2);
         creds.priority = network["priority"] | 1;
         
         knownNetworks.push_back(creds);

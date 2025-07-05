@@ -46,13 +46,21 @@ ETH_PHY_ADDR = 1       // PHY address
 
 2. **Select Board**:
    - Go to Tools → Board → ESP32 Arduino
-   - Select "ESP32S3 Dev Module"
+   - Select "ESP32S3 Dev Module" (Important: NOT "ESP32 Dev Module")
 
-3. **Configure Board Settings**:
-   - **CPU Frequency**: 240MHz
-   - **Flash Size**: 4MB (32Mb)
-   - **Partition Scheme**: Default 4MB with spiffs
+3. **Configure Board Settings** (Important for WT32-ETH01):
    - **Upload Speed**: 921600
+   - **USB Mode**: Hardware CDC and JTAG
+   - **USB CDC On Boot**: Enabled
+   - **USB Firmware MSC On Boot**: Disabled
+   - **USB DFU On Boot**: Disabled
+   - **Upload Mode**: UART0 / Hardware CDC
+   - **CPU Frequency**: 240MHz (WiFi)
+   - **Flash Mode**: QIO 80MHz
+   - **Flash Size**: 4MB (32Mb)
+   - **Partition Scheme**: Default 4MB with spiffs (1.2MB APP/1.5MB SPIFFS)
+   - **Core Debug Level**: None
+   - **PSRAM**: Disabled
    - **Arduino Runs On**: Core 1
    - **Events Run On**: Core 1
 
@@ -107,23 +115,28 @@ ETH_PHY_ADDR = 1       // PHY address
 
 ### Common Issues:
 
-1. **Board Not Recognized**:
+1. **A2DP Compilation Error**:
+   - Make sure you selected "ESP32S3 Dev Module" not "ESP32 Dev Module"
+   - The code automatically disables Bluetooth to prevent this error
+   - If error persists, see `COMPILATION_FIX.md` for detailed solutions
+
+2. **Board Not Recognized**:
    - Install CP2102 USB driver
    - Check USB cable connection
    - Try different USB port
 
-2. **Upload Fails**:
+3. **Upload Fails**:
    - Hold BOOT button during upload
    - Check board and port selection
    - Reduce upload speed to 115200
 
-3. **Ethernet Not Working**:
+4. **Ethernet Not Working**:
    - Verify ethernet cable connection
    - Check network switch/router
    - Try different ethernet cable
    - Check power supply (minimum 500mA)
 
-4. **No Serial Output**:
+5. **No Serial Output**:
    - Verify baud rate is 115200
    - Check COM port selection
    - Press Reset button on board

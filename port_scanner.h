@@ -8,6 +8,7 @@
 
 #include <Arduino.h>
 #include <WiFi.h>
+#include <WiFiClient.h>
 #include <vector>
 #include <IPAddress.h>
 #include "config.h"

@@ -438,11 +438,25 @@ void WebInterface::loadConfiguration() {
         
         networkConfig.useDHCP = doc["network"]["dhcp"] | true;
         if (!networkConfig.useDHCP) {
-            networkConfig.staticIP = stringToIP(doc["network"]["static_ip"] | "192.168.1.100");
-            networkConfig.gateway = stringToIP(doc["network"]["gateway"] | "192.168.1.1");
-            networkConfig.subnet = stringToIP(doc["network"]["subnet"] | "255.255.255.0");
-            networkConfig.dns1 = stringToIP(doc["network"]["dns1"] | "8.8.8.8");
-            networkConfig.dns2 = stringToIP(doc["network"]["dns2"] | "8.8.4.4");
+            String staticIP = doc["network"]["static_ip"].as<String>();
+            if (staticIP.isEmpty()) staticIP = "192.168.1.100";
+            networkConfig.staticIP = stringToIP(staticIP);
+            
+            String gateway = doc["network"]["gateway"].as<String>();
+            if (gateway.isEmpty()) gateway = "192.168.1.1";
+            networkConfig.gateway = stringToIP(gateway);
+            
+            String subnet = doc["network"]["subnet"].as<String>();
+            if (subnet.isEmpty()) subnet = "255.255.255.0";
+            networkConfig.subnet = stringToIP(subnet);
+            
+            String dns1 = doc["network"]["dns1"].as<String>();
+            if (dns1.isEmpty()) dns1 = "8.8.8.8";
+            networkConfig.dns1 = stringToIP(dns1);
+            
+            String dns2 = doc["network"]["dns2"].as<String>();
+            if (dns2.isEmpty()) dns2 = "8.8.4.4";
+            networkConfig.dns2 = stringToIP(dns2);
         }
         
         configFile.close();

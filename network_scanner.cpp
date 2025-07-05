@@ -126,7 +126,7 @@ bool NetworkScanner::arpPing(IPAddress target) {
     
     // Send a small UDP packet to trigger ARP resolution
     udp.beginPacket(target, 7); // Echo port
-    udp.write("ping");
+    udp.write((const uint8_t*)"ping", 4);
     bool result = udp.endPacket();
     
     udp.stop();

@@ -8,6 +8,7 @@
 
 #include <Arduino.h>
 #include <WiFi.h>
+#include <WiFiUdp.h>
 #include <ETH.h>
 #include <vector>
 #include <IPAddress.h>
