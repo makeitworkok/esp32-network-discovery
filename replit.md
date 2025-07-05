@@ -128,6 +128,7 @@ Changelog:
   * Added intelligent ETH library include detection for board package 3.2.0
   * Implemented LittleFS filesystem support with automatic SPIFFS fallback
   * Updated all filesystem operations to use FILESYSTEM macro for compatibility
+  * Fixed ETH_PHY_LAN8720 declaration issue by ensuring config.h is included before ETH.h
   * Verified all WiFi event constants for ESP32 3.2.0 compatibility
   * Comprehensive validation script confirms full 3.2.0 compatibility
   * Code now supports ESP32 board packages 2.0.9, 2.0.11, 2.0.14, and 3.2.0

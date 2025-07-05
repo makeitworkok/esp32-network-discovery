@@ -10,6 +10,9 @@
 #include <WiFi.h>
 #include <WiFiUdp.h>
 
+// Include config.h FIRST to define PHY constants before ETH.h
+#include "config.h"
+
 // Fix for ETH library compatibility across ESP32 board package versions
 #if defined(ARDUINO_ARCH_ESP32) && defined(ESP_ARDUINO_VERSION_MAJOR) && ESP_ARDUINO_VERSION_MAJOR >= 3
   #include "ETH.h"

@@ -7,6 +7,9 @@
 // Disable Bluetooth to avoid A2DP compilation errors
 #define CONFIG_BT_ENABLED 0
 
+// Include config.h FIRST to define PHY constants before ETH.h
+#include "config.h"
+
 // Fix for ETH library compatibility across ESP32 board package versions
 #if defined(ARDUINO_ARCH_ESP32) && defined(ESP_ARDUINO_VERSION_MAJOR) && ESP_ARDUINO_VERSION_MAJOR >= 3
   #include "ETH.h"
@@ -27,7 +30,6 @@
   #include <SPIFFS.h>
   #define FILESYSTEM SPIFFS
 #endif
-#include "config.h"
 #include "network_scanner.h"
 #include "port_scanner.h"
 #include "web_interface.h"

@@ -12,6 +12,11 @@
 **Cause**: New board package prefers LittleFS over SPIFFS for better performance and reliability
 **Solution**: Added automatic filesystem detection with fallback support
 
+### ETH_PHY_LAN8720 Not Declared Error (ESP32 Board Package 3.2.0)
+**Error**: "ETH_PHY_LAN8720 was not declared in this scope"
+**Cause**: PHY constants must be defined BEFORE including ETH.h in ESP32 3.2.0
+**Solution**: Moved config.h include to the top of files before ETH.h includes
+
 ### A2DP Compilation Error  
 **Error**: A2DP (Advanced Audio Distribution Profile) compilation issues
 **Cause**: Wrong ESP32 board selection or Bluetooth enabled when not needed
@@ -94,6 +99,7 @@ The following fixes have been applied to resolve compilation errors:
 - **Network.h Error (3.2.0)**: Added version-specific ETH.h includes for board package 3.2.0 compatibility
 - **ESP32 3.x Support**: Auto-detects ESP_ARDUINO_VERSION_MAJOR >= 3 and uses correct include paths
 - **Filesystem Compatibility (3.2.0)**: Added LittleFS support for ESP32 3.2.0 with automatic fallback to SPIFFS
+- **PHY Constants Error (3.2.0)**: Fixed ETH_PHY_LAN8720 declaration by ensuring config.h is included before ETH.h
 - **Line 129 network_scanner.cpp**: Fixed `udp.write("ping")` to `udp.write((const uint8_t*)"ping", 4)`
 - **ArduinoJson compatibility**: Updated JSON parsing in `web_interface.cpp` and `wifi_manager.cpp`
 - **Missing includes**: Added `#include <WiFiUdp.h>` to `network_scanner.h`

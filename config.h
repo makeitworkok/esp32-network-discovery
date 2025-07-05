@@ -61,6 +61,8 @@ const std::vector<int> TARGET_PORTS = {
 #define ETH_PHY_POWER 16            // Power pin for LAN8720 on WT32-ETH01
 #define ETH_PHY_MDC 23              // MDC pin
 #define ETH_PHY_MDIO 18             // MDIO pin
+// ESP32 3.2.0 compatibility - Define PHY constants BEFORE including ETH.h
+// These constants are the same across all board package versions
 #define ETH_PHY_TYPE ETH_PHY_LAN8720
 #define ETH_CLK_MODE ETH_CLOCK_GPIO0_IN  // WT32-ETH01 uses GPIO0 for clock input
 #define ETH_PHY_ADDR 1              // PHY address for WT32-ETH01
