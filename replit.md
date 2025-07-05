@@ -124,6 +124,13 @@ Changelog:
   * Serial commands for WiFi control and troubleshooting
   * Support for static IP configuration on WiFi connections
   * Persistent WiFi configuration storage in SPIFFS
+- July 05, 2025: Enhanced ESP32 3.2.0 compatibility:
+  * Added intelligent ETH library include detection for board package 3.2.0
+  * Implemented LittleFS filesystem support with automatic SPIFFS fallback
+  * Updated all filesystem operations to use FILESYSTEM macro for compatibility
+  * Verified all WiFi event constants for ESP32 3.2.0 compatibility
+  * Comprehensive validation script confirms full 3.2.0 compatibility
+  * Code now supports ESP32 board packages 2.0.9, 2.0.11, 2.0.14, and 3.2.0
 ```
 
 ## User Preferences

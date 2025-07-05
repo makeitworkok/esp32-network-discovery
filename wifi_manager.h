@@ -11,7 +11,14 @@
 #include <WiFiAP.h>
 #include <DNSServer.h>
 #include <ArduinoJson.h>
-#include <SPIFFS.h>
+// ESP32 3.2.0 compatibility for filesystem
+#if defined(ESP_ARDUINO_VERSION_MAJOR) && ESP_ARDUINO_VERSION_MAJOR >= 3
+  #include <LittleFS.h>
+  #define FILESYSTEM LittleFS
+#else
+  #include <SPIFFS.h>
+  #define FILESYSTEM SPIFFS
+#endif
 #include <vector>
 #include "config.h"
 

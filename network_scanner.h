@@ -9,7 +9,16 @@
 #include <Arduino.h>
 #include <WiFi.h>
 #include <WiFiUdp.h>
-#include <ETH.h>
+
+// Fix for ETH library compatibility across ESP32 board package versions
+#if defined(ARDUINO_ARCH_ESP32) && defined(ESP_ARDUINO_VERSION_MAJOR) && ESP_ARDUINO_VERSION_MAJOR >= 3
+  #include "ETH.h"
+#elif defined(ESP_IDF_VERSION_MAJOR) && ESP_IDF_VERSION_MAJOR >= 4
+  #include <ETH.h>
+#else
+  #include <ETH.h>
+#endif
+
 #include <vector>
 #include <IPAddress.h>
 #include "config.h"

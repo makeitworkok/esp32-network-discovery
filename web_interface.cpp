@@ -34,9 +34,9 @@ WebInterface::~WebInterface() {
 }
 
 void WebInterface::begin() {
-    // Initialize SPIFFS for file storage
-    if (!SPIFFS.begin(true)) {
-        Serial.println("SPIFFS initialization failed");
+    // Initialize filesystem for file storage (ESP32 3.2.0 compatibility)
+    if (!FILESYSTEM.begin(true)) {
+        Serial.println("Filesystem initialization failed");
         return;
     }
     
@@ -431,7 +431,7 @@ String WebInterface::generateCSV() {
 }
 
 void WebInterface::loadConfiguration() {
-    File configFile = SPIFFS.open("/config.json", "r");
+    File configFile = FILESYSTEM.open("/config.json", "r");
     if (configFile) {
         DynamicJsonDocument doc(1024);
         deserializeJson(doc, configFile);
@@ -474,7 +474,7 @@ void WebInterface::saveConfiguration() {
         doc["network"]["dns2"] = ipToString(networkConfig.dns2);
     }
     
-    File configFile = SPIFFS.open("/config.json", "w");
+    File configFile = FILESYSTEM.open("/config.json", "w");
     if (configFile) {
         serializeJson(doc, configFile);
         configFile.close();

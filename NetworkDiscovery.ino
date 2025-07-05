@@ -7,11 +7,26 @@
 // Disable Bluetooth to avoid A2DP compilation errors
 #define CONFIG_BT_ENABLED 0
 
-#include <ETH.h>
+// Fix for ETH library compatibility across ESP32 board package versions
+#if defined(ARDUINO_ARCH_ESP32) && defined(ESP_ARDUINO_VERSION_MAJOR) && ESP_ARDUINO_VERSION_MAJOR >= 3
+  #include "ETH.h"
+#elif defined(ESP_IDF_VERSION_MAJOR) && ESP_IDF_VERSION_MAJOR >= 4
+  #include <ETH.h>
+#else
+  #include <ETH.h>
+#endif
+
 #include <WiFi.h>
 #include <WebServer.h>
 #include <ArduinoJson.h>
-#include <SPIFFS.h>
+// ESP32 3.2.0 compatibility for filesystem
+#if defined(ESP_ARDUINO_VERSION_MAJOR) && ESP_ARDUINO_VERSION_MAJOR >= 3
+  #include <LittleFS.h>
+  #define FILESYSTEM LittleFS
+#else
+  #include <SPIFFS.h>
+  #define FILESYSTEM SPIFFS
+#endif
 #include "config.h"
 #include "network_scanner.h"
 #include "port_scanner.h"

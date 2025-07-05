@@ -403,7 +403,7 @@ void WiFiManager::loadCredentials() {
 }
 
 bool WiFiManager::saveToFile() {
-    File configFile = SPIFFS.open("/wifi_config.json", "w");
+    File configFile = FILESYSTEM.open("/wifi_config.json", "w");
     if (!configFile) {
         Serial.println("Failed to open WiFi config file for writing");
         return false;
@@ -438,7 +438,7 @@ bool WiFiManager::saveToFile() {
 }
 
 bool WiFiManager::loadFromFile() {
-    File configFile = SPIFFS.open("/wifi_config.json", "r");
+    File configFile = FILESYSTEM.open("/wifi_config.json", "r");
     if (!configFile) {
         Serial.println("WiFi config file not found, using defaults");
         return false;

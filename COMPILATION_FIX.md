@@ -1,7 +1,21 @@
 # Compilation Fix for A2DP Error
 
-## Problem
-You're getting an A2DP (Advanced Audio Distribution Profile) error when compiling. This happens when the wrong ESP32 board is selected in Arduino IDE.
+## Problems and Solutions
+
+### Network.h Fatal Error (ESP32 Board Package 3.2.0)
+**Error**: "Fatal error: Network.h: No such file or directory" in esp32\hardware\esp32\3.2.0\libraries\Wi-Fi\src
+**Cause**: ESP32 board package 3.2.0 changed the ETH library structure and include paths
+**Solution**: Updated code with version-specific includes for board package 3.2.0 compatibility
+
+### SPIFFS/LittleFS Filesystem Compatibility (ESP32 Board Package 3.2.0)
+**Issue**: ESP32 board package 3.2.0 deprecated SPIFFS in favor of LittleFS
+**Cause**: New board package prefers LittleFS over SPIFFS for better performance and reliability
+**Solution**: Added automatic filesystem detection with fallback support
+
+### A2DP Compilation Error  
+**Error**: A2DP (Advanced Audio Distribution Profile) compilation issues
+**Cause**: Wrong ESP32 board selection or Bluetooth enabled when not needed
+**Solution**: Bluetooth completely disabled in code
 
 ## Solution
 
@@ -76,11 +90,15 @@ The following fixes have been applied to resolve compilation errors:
 #define CONFIG_BT_ENABLED 0
 ```
 
-**Type Conversion and Include Fixes:**
+**All Compilation Fixes Applied for ESP32 Board Package 3.2.0:**
+- **Network.h Error (3.2.0)**: Added version-specific ETH.h includes for board package 3.2.0 compatibility
+- **ESP32 3.x Support**: Auto-detects ESP_ARDUINO_VERSION_MAJOR >= 3 and uses correct include paths
+- **Filesystem Compatibility (3.2.0)**: Added LittleFS support for ESP32 3.2.0 with automatic fallback to SPIFFS
 - **Line 129 network_scanner.cpp**: Fixed `udp.write("ping")` to `udp.write((const uint8_t*)"ping", 4)`
 - **ArduinoJson compatibility**: Updated JSON parsing in `web_interface.cpp` and `wifi_manager.cpp`
 - **Missing includes**: Added `#include <WiFiUdp.h>` to `network_scanner.h`
 - **Missing includes**: Added `#include <WiFiClient.h>` to `port_scanner.h`
+- **A2DP Error**: Completely disabled Bluetooth with `#define CONFIG_BT_ENABLED 0`
 - Fixed all const char to uint8_t conversion errors
 
 ### 6. Troubleshooting Steps
@@ -109,11 +127,29 @@ For WT32-ETH01, use these exact settings:
 
 This configuration disables Bluetooth features and focuses on WiFi/Ethernet connectivity, which is perfect for the network discovery tool.
 
-### 8. Alternative Board Packages
+### 8. Network.h Error Specific Fixes
 
-If issues persist, try these ESP32 board package versions:
-- **Recommended**: 2.0.11 (stable)
-- **Alternative**: 2.0.14 (latest)
-- **Fallback**: 2.0.9 (older but stable)
+If the Network.h error persists after applying the code fixes:
 
-The A2DP error should be completely resolved with the correct board selection and configuration.
+1. **Update ESP32 Board Package**:
+   - Go to Tools → Board → Board Manager
+   - Search "esp32" 
+   - Uninstall current version
+   - Install version 2.0.11 (recommended) or 2.0.14 (latest)
+
+2. **ESP32 Board Package Versions**:
+   - **Latest**: 3.2.0 (newest, now supported with updated includes)
+   - **Stable**: 2.0.11 (well-tested, good ETH.h support)  
+   - **Alternative**: 2.0.14 (stable features)
+   - **Fallback**: 2.0.9 (older but reliable)
+
+3. **Manual Library Check**:
+   - Verify ETH library is present: `Arduino/libraries/` or board package folder
+   - If missing, reinstall ESP32 board package completely
+
+4. **IDE Cache Clear**:
+   - Close Arduino IDE
+   - Delete IDE cache folders (see step 4 above)
+   - Restart and recompile
+
+The Network.h error is now fixed with version-specific includes and should compile successfully.
